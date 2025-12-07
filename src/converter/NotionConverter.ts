@@ -5,6 +5,7 @@ import {
 import { UnsupportedElementError } from '../errors.js';
 import {
   BookmarkConverter,
+  EmbedConverter,
   CalloutConverter,
   CodeConverter,
   DividerConverter,
@@ -70,6 +71,7 @@ export class NotionConverter {
     );
     this.registry.set(ElementType.Link, new LinkConverter());
     this.registry.set(ElementType.Bookmark, new BookmarkConverter());
+    this.registry.set(ElementType.Embed, new EmbedConverter());
     this.registry.set(ElementType.Divider, new DividerConverter());
     this.registry.set(ElementType.Code, new CodeConverter());
     this.registry.set(ElementType.Image, new ImageConverter());

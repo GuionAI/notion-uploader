@@ -7,6 +7,7 @@ import {
   DividerElement,
   ElementCodeLanguage,
   ElementType,
+  EmbedElement,
   EquationElement,
   ImageElement,
   LinkElement,
@@ -226,5 +227,23 @@ describe('MarkdownParser', () => {
     const richText = textElement.text as LinkElement[];
     expect(richText[0].type).toBe(ElementType.Link);
     expect(richText[0].text).toBe('Click here');
+  });
+
+  it('should parse embed links', () => {
+    const markdown = '[!embed](https://www.youtube.com/watch?v=dQw4w9WgXcQ)';
+    const elements = parser.parse(markdown);
+    expect(elements).toHaveLength(1);
+    expect(elements[0]).toBeInstanceOf(EmbedElement);
+    const embedElement = elements[0] as EmbedElement;
+    expect(embedElement.type).toBe(ElementType.Embed);
+    expect(embedElement.url).toBe('https://www.youtube.com/watch?v=dQw4w9WgXcQ');
+  });
+
+  it('should parse embed followed by content', () => {
+    const markdown = '[!embed](https://youtu.be/abc123)\n\nSome content here.';
+    const elements = parser.parse(markdown);
+    expect(elements).toHaveLength(2);
+    expect(elements[0]).toBeInstanceOf(EmbedElement);
+    expect(elements[1]).toBeInstanceOf(TextElement);
   });
 });

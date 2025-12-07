@@ -8,6 +8,7 @@ import {
   DividerElement,
   Element,
   ElementCodeLanguage,
+  EmbedElement,
   EquationElement,
   ImageElement,
   isElementCodeLanguage,
@@ -287,6 +288,8 @@ export class MarkdownParser {
           const linkToken = token.tokens[0] as Tokens.Link;
           if (linkToken.text === '!bookmark') {
             elements.push(new BookmarkElement({ url: linkToken.href }));
+          } else if (linkToken.text === '!embed') {
+            elements.push(new EmbedElement({ url: linkToken.href }));
           } else {
             elements.push(
               new TextElement({

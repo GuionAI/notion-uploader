@@ -8,6 +8,7 @@ export enum ElementType {
   Image = 'image',
   Link = 'link',
   Bookmark = 'bookmark',
+  Embed = 'embed',
   Table = 'table',
   ListItem = 'list-item',
   Toggle = 'toggle',

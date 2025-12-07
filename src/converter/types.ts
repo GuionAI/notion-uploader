@@ -202,6 +202,15 @@ export interface BookmarkBlock {
   object?: 'block';
 }
 
+export interface EmbedBlock {
+  embed: {
+    url: string;
+    caption?: Array<RichTextItemRequest>;
+  };
+  type?: 'embed';
+  object?: 'block';
+}
+
 export type BlockObjectRequest =
   | Heading1Block
   | Heading2Block
@@ -218,7 +227,8 @@ export type BlockObjectRequest =
   | TableBlock
   | ImageBlock
   | ToDoBlock
-  | BookmarkBlock;
+  | BookmarkBlock
+  | EmbedBlock;
 
 /**
  * Type-safe helper to get children from a block
