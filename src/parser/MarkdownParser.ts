@@ -2,6 +2,7 @@ import { marked, Tokens } from 'marked';
 import markedKatex from 'marked-katex-extension';
 
 import {
+  BookmarkElement,
   CalloutElement,
   CodeElement,
   DividerElement,
@@ -282,6 +283,18 @@ export class MarkdownParser {
       case 'paragraph': {
         if (token.tokens?.length === 1 && token.tokens[0].type === 'image') {
           elements.push(this.parseImageToken(token.tokens[0] as Tokens.Image));
+        } else if (token.tokens?.length === 1 && token.tokens[0].type === 'link') {
+          const linkToken = token.tokens[0] as Tokens.Link;
+          if (linkToken.text === '!bookmark') {
+            elements.push(new BookmarkElement({ url: linkToken.href }));
+          } else {
+            elements.push(
+              new TextElement({
+                text: this.parseParagraphToken(token as Tokens.Paragraph),
+                level: TextElementLevel.Paragraph,
+              })
+            );
+          }
         } else {
           elements.push(
             new TextElement({

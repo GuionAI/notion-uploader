@@ -1,3 +1,4 @@
+export * from './BookmarkConverter.js';
 export * from './CalloutConverter.js';
 export * from './CodeConverter.js';
 export * from './DividerConverter.js';

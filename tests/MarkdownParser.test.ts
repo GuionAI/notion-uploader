@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { MarkdownParser } from '../src/parser/MarkdownParser';
 import {
+  BookmarkElement,
   CalloutElement,
   CodeElement,
   DividerElement,
@@ -194,5 +195,36 @@ describe('MarkdownParser', () => {
     expect(elements[0]).toBeInstanceOf(EquationElement);
     const equationElement = elements[0] as EquationElement;
     expect(equationElement.equation).toBe('E=mc^2');
+  });
+
+  it('should parse bookmark links', () => {
+    const markdown = '[!bookmark](https://example.com)';
+    const elements = parser.parse(markdown);
+    expect(elements).toHaveLength(1);
+    expect(elements[0]).toBeInstanceOf(BookmarkElement);
+    const bookmarkElement = elements[0] as BookmarkElement;
+    expect(bookmarkElement.type).toBe(ElementType.Bookmark);
+    expect(bookmarkElement.url).toBe('https://example.com');
+  });
+
+  it('should parse bookmark followed by content', () => {
+    const markdown = '[!bookmark](https://example.com)\n\nSome content here.';
+    const elements = parser.parse(markdown);
+    expect(elements).toHaveLength(2);
+    expect(elements[0]).toBeInstanceOf(BookmarkElement);
+    expect(elements[1]).toBeInstanceOf(TextElement);
+    const bookmarkElement = elements[0] as BookmarkElement;
+    expect(bookmarkElement.url).toBe('https://example.com');
+  });
+
+  it('should not treat regular links as bookmarks', () => {
+    const markdown = '[Click here](https://example.com)';
+    const elements = parser.parse(markdown);
+    expect(elements).toHaveLength(1);
+    expect(elements[0]).toBeInstanceOf(TextElement);
+    const textElement = elements[0] as TextElement;
+    const richText = textElement.text as LinkElement[];
+    expect(richText[0].type).toBe(ElementType.Link);
+    expect(richText[0].text).toBe('Click here');
   });
 });

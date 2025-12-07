@@ -7,6 +7,7 @@ export enum ElementType {
   Divider = 'divider',
   Image = 'image',
   Link = 'link',
+  Bookmark = 'bookmark',
   Table = 'table',
   ListItem = 'list-item',
   Toggle = 'toggle',

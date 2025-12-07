@@ -193,6 +193,15 @@ export interface ToDoBlock {
   object?: 'block';
 }
 
+export interface BookmarkBlock {
+  bookmark: {
+    url: string;
+    caption?: Array<RichTextItemRequest>;
+  };
+  type?: 'bookmark';
+  object?: 'block';
+}
+
 export type BlockObjectRequest =
   | Heading1Block
   | Heading2Block
@@ -208,7 +217,8 @@ export type BlockObjectRequest =
   | DividerBlock
   | TableBlock
   | ImageBlock
-  | ToDoBlock;
+  | ToDoBlock
+  | BookmarkBlock;
 
 /**
  * Type-safe helper to get children from a block

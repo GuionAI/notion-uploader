@@ -2,6 +2,7 @@ export { Element } from './Element.js';
 export { PageElement } from './PageElement.js';
 export { TextElement, TextElementLevel, type RichTextElement } from './TextElement.js';
 export { LinkElement } from './LinkElement.js';
+export { BookmarkElement } from './BookmarkElement.js';
 export { ImageElement } from './ImageElement.js';
 export { CodeElement } from './CodeElement.js';
 export { ListItemElement } from './ListItemElement.js';

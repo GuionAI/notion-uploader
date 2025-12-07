@@ -4,6 +4,7 @@ import {
 } from '../elements/index.js';
 import { UnsupportedElementError } from '../errors.js';
 import {
+  BookmarkConverter,
   CalloutConverter,
   CodeConverter,
   DividerConverter,
@@ -68,6 +69,7 @@ export class NotionConverter {
       new ToggleConverter(convertElement)
     );
     this.registry.set(ElementType.Link, new LinkConverter());
+    this.registry.set(ElementType.Bookmark, new BookmarkConverter());
     this.registry.set(ElementType.Divider, new DividerConverter());
     this.registry.set(ElementType.Code, new CodeConverter());
     this.registry.set(ElementType.Image, new ImageConverter());
