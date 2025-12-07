@@ -1,17 +1,17 @@
-# @flicknote/notion-converter
+# @flicknote/notion-uploader
 
 Convert markdown to Notion pages.
 
 ## Installation
 
 ```bash
-npm install @flicknote/notion-converter
+npm install @flicknote/notion-uploader
 ```
 
 ## Usage
 
 ```typescript
-import { markdownToNotion } from '@flicknote/notion-converter';
+import { markdownToNotion } from '@flicknote/notion-uploader';
 
 await markdownToNotion({
   markdown: '# Hello\n\nSome **bold** text',

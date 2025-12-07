@@ -1,5 +1,5 @@
 {
-  "name": "@flicknote/notion-converter",
+  "name": "@flicknote/notion-uploader",
   "version": "0.1.0",
   "description": "Convert markdown to Notion pages",
   "main": "dist/index.js",
@@ -7,6 +7,10 @@
   "files": [
     "dist"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GuionAI/notion-uploader.git"
+  },
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
@@ -15,7 +19,7 @@
   "keywords": [
     "markdown",
     "notion",
-    "converter",
+    "uploader",
     "notion-api"
   ],
   "license": "MIT",
