@@ -7,7 +7,10 @@ export class NotionClient {
   private client: Client;
 
   constructor(apiKey: string) {
-    this.client = new Client({ auth: apiKey });
+    this.client = new Client({
+      auth: apiKey,
+      fetch: (...args) => fetch(...args),
+    });
   }
 
   /**
