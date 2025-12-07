@@ -190,3 +190,77 @@ export type BlockObjectRequest =
   | DividerBlock
   | TableBlock
   | ImageBlock;
+
+/**
+ * Type-safe helper to get children from a block
+ */
+export function getBlockChildren(block: BlockObjectRequest): BlockObjectRequest[] | undefined {
+  switch (block.type) {
+    case 'bulleted_list_item':
+      return block.bulleted_list_item.children as BlockObjectRequest[] | undefined;
+    case 'numbered_list_item':
+      return block.numbered_list_item.children as BlockObjectRequest[] | undefined;
+    case 'toggle':
+      return block.toggle.children as BlockObjectRequest[] | undefined;
+    case 'quote':
+      return block.quote.children as BlockObjectRequest[] | undefined;
+    case 'callout':
+      return block.callout.children as BlockObjectRequest[] | undefined;
+    case 'paragraph':
+      return block.paragraph.children as BlockObjectRequest[] | undefined;
+    case 'heading_1':
+      return block.heading_1.children as BlockObjectRequest[] | undefined;
+    case 'heading_2':
+      return block.heading_2.children as BlockObjectRequest[] | undefined;
+    case 'heading_3':
+      return block.heading_3.children as BlockObjectRequest[] | undefined;
+    default:
+      return undefined;
+  }
+}
+
+/**
+ * Type-safe helper to create a copy of a block without children
+ */
+export function stripBlockChildren(block: BlockObjectRequest): BlockObjectRequest {
+  switch (block.type) {
+    case 'bulleted_list_item': {
+      const { children, ...rest } = block.bulleted_list_item;
+      return { ...block, bulleted_list_item: rest };
+    }
+    case 'numbered_list_item': {
+      const { children, ...rest } = block.numbered_list_item;
+      return { ...block, numbered_list_item: rest };
+    }
+    case 'toggle': {
+      const { children, ...rest } = block.toggle;
+      return { ...block, toggle: rest };
+    }
+    case 'quote': {
+      const { children, ...rest } = block.quote;
+      return { ...block, quote: rest };
+    }
+    case 'callout': {
+      const { children, ...rest } = block.callout;
+      return { ...block, callout: rest };
+    }
+    case 'paragraph': {
+      const { children, ...rest } = block.paragraph;
+      return { ...block, paragraph: rest };
+    }
+    case 'heading_1': {
+      const { children, ...rest } = block.heading_1;
+      return { ...block, heading_1: rest };
+    }
+    case 'heading_2': {
+      const { children, ...rest } = block.heading_2;
+      return { ...block, heading_2: rest };
+    }
+    case 'heading_3': {
+      const { children, ...rest } = block.heading_3;
+      return { ...block, heading_3: rest };
+    }
+    default:
+      return block;
+  }
+}
