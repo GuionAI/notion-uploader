@@ -17,10 +17,11 @@ import {
   ToggleConverter,
   TodoConverter,
 } from './converters/index.js';
-import { getConverter, registerConverter } from './registry.js';
-import { BlockObjectRequest } from './types.js';
+import { BlockObjectRequest, ElementConverter } from './types.js';
 
 export class NotionConverter {
+  private registry = new Map<ElementType, ElementConverter>();
+
   constructor() {
     this.registerConverters();
   }
@@ -43,7 +44,7 @@ export class NotionConverter {
       return null;
     }
 
-    const converter = getConverter(element.type);
+    const converter = this.registry.get(element.type);
     if (!converter) {
       throw new UnsupportedElementError(element.type);
     }
@@ -54,23 +55,23 @@ export class NotionConverter {
   private registerConverters() {
     const convertElement = (element: Element) => this.convertElement(element);
 
-    registerConverter(ElementType.Text, new TextConverter());
-    registerConverter(ElementType.Quote, new QuoteConverter());
-    registerConverter(ElementType.Callout, new CalloutConverter());
-    registerConverter(
+    this.registry.set(ElementType.Text, new TextConverter());
+    this.registry.set(ElementType.Quote, new QuoteConverter());
+    this.registry.set(ElementType.Callout, new CalloutConverter());
+    this.registry.set(
       ElementType.ListItem,
       new ListItemConverter(convertElement)
     );
-    registerConverter(ElementType.Table, new TableConverter());
-    registerConverter(
+    this.registry.set(ElementType.Table, new TableConverter());
+    this.registry.set(
       ElementType.Toggle,
       new ToggleConverter(convertElement)
     );
-    registerConverter(ElementType.Link, new LinkConverter());
-    registerConverter(ElementType.Divider, new DividerConverter());
-    registerConverter(ElementType.Code, new CodeConverter());
-    registerConverter(ElementType.Image, new ImageConverter());
-    registerConverter(ElementType.Equation, new EquationConverter());
-    registerConverter(ElementType.Todo, new TodoConverter());
+    this.registry.set(ElementType.Link, new LinkConverter());
+    this.registry.set(ElementType.Divider, new DividerConverter());
+    this.registry.set(ElementType.Code, new CodeConverter());
+    this.registry.set(ElementType.Image, new ImageConverter());
+    this.registry.set(ElementType.Equation, new EquationConverter());
+    this.registry.set(ElementType.Todo, new TodoConverter());
   }
 }
