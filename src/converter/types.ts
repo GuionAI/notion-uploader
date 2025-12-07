@@ -1,7 +1,12 @@
 import { BlockObjectRequestWithoutChildren as _BlockObjectRequestWithoutChildren } from '@notionhq/client/build/src/api-endpoints.js';
+import { Element } from '../elements/index.js';
 
 export type BlockObjectRequestWithoutChildren =
   _BlockObjectRequestWithoutChildren;
+
+export interface ElementConverter {
+  convert(element: Element): BlockObjectRequest | null;
+}
 
 type EmptyObject = Record<string, never>;
 
@@ -175,6 +180,19 @@ export interface ImageBlock {
   object?: 'block';
 }
 
+export interface ToDoListItemBlock {
+  rich_text: Array<RichTextItemRequest>;
+  color?: ApiColor;
+  children?: Array<BlockObjectRequestWithoutChildren>;
+  checked?: boolean;
+}
+
+export interface ToDoBlock {
+  to_do: ToDoListItemBlock;
+  type?: 'to_do';
+  object?: 'block';
+}
+
 export type BlockObjectRequest =
   | Heading1Block
   | Heading2Block
@@ -189,7 +207,8 @@ export type BlockObjectRequest =
   | EquationBlock
   | DividerBlock
   | TableBlock
-  | ImageBlock;
+  | ImageBlock
+  | ToDoBlock;
 
 /**
  * Type-safe helper to get children from a block

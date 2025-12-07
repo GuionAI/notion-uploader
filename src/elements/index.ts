@@ -11,7 +11,7 @@ export { CalloutElement } from './CalloutElement.js';
 export { DividerElement } from './DividerElement.js';
 export { EquationElement } from './EquationElement.js';
 export { ToggleElement } from './ToggleElement.js';
-export { HtmlElement } from './HtmlElement.js';
+export { TodoElement } from './TodoElement.js';
 export {
   ElementType,
   ElementCodeLanguage,

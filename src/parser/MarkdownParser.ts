@@ -17,6 +17,7 @@ import {
   TableElement,
   TextElement,
   TextElementLevel,
+  TodoElement,
 } from '../elements/index.js';
 import { EquationToken, ExtendedToken } from './types.js';
 
@@ -54,7 +55,7 @@ export class MarkdownParser {
     });
   }
 
-  private parseListToken(token: Tokens.List): ListItemElement[] {
+  private parseListToken(token: Tokens.List): (ListItemElement | TodoElement)[] {
     return token.items.map((item) => {
       let text: RichTextElement = [];
       const children: Element[] = [];
@@ -70,6 +71,10 @@ export class MarkdownParser {
           const contentItem = this.parseToken(nestedToken);
           children.push(...contentItem);
         }
+      }
+
+      if (item.task) {
+        return new TodoElement(text, item.checked || false);
       }
 
       return new ListItemElement({

@@ -9,9 +9,9 @@ export enum ElementType {
   Link = 'link',
   Table = 'table',
   ListItem = 'list-item',
-  Html = 'html',
   Toggle = 'toggle',
   Equation = 'equation',
+  Todo = 'todo',
 }
 
 export type TextElementStyles = {

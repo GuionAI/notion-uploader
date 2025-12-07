@@ -1,5 +1,6 @@
 import { NotionClient } from './client/index.js';
 import { NotionConverter } from './converter/index.js';
+import { PageAccessibilityError } from './errors.js';
 import { MarkdownParser } from './parser/index.js';
 
 export interface MarkdownToNotionOptions {
@@ -54,9 +55,7 @@ export async function markdownToNotion(
   // Check page accessibility
   const isAccessible = await client.isPageAccessible(notionPageId);
   if (!isAccessible) {
-    throw new Error(
-      `Cannot access Notion page ${notionPageId}. Make sure the page exists and your integration has access.`
-    );
+    throw new PageAccessibilityError(notionPageId);
   }
 
   // Parse markdown to elements
@@ -72,3 +71,4 @@ export async function markdownToNotion(
 
   await client.appendBlocks(notionPageId, blocks);
 }
+
