@@ -7,14 +7,19 @@
   "files": [
     "dist"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/GuionAI/notion-uploader.git"
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    }
   },
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
-    "test": "vitest run"
+    "test": "vitest run",
+    "prepublishOnly": "npm run build",
+    "release": "npx semantic-release"
   },
   "keywords": [
     "markdown",
@@ -22,18 +27,30 @@
     "uploader",
     "notion-api"
   ],
+  "author": "FlickNote Team",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GuionAI/notion-uploader.git"
+  },
   "dependencies": {
     "@notionhq/client": "^5.0.0",
     "marked": "^15.0.0",
     "marked-katex-extension": "^5.0.0"
   },
   "devDependencies": {
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/npm": "^13.1.2",
     "@types/node": "^22.0.0",
+    "semantic-release": "^25.0.2",
     "typescript": "^5.0.0",
     "vitest": "^4.0.15"
   },
   "engines": {
     "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   }
 }
